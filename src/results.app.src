@@ -1,5 +1,5 @@
 {application, results,
- [{description, "An OTP library"},
+ [{description, "An Erlang library for unifying the treatment of results (values + errors)"},
   {vsn, "0.1.0"},
   {registered, []},
   {applications,

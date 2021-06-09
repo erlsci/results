@@ -1,6 +1,6 @@
 # results
 
-*An Erlang library for unifying the treatment of results and associated errors*
+*An Erlang library for unifying the treatment of results (values + errors)*
 
 [![Build Status][gh-actions-badge]][gh-actions]
 [![Erlang Versions][erlang-badge]][versions]
