@@ -2,9 +2,9 @@
 
 -compile({no_auto_import, [error/1]}).
 
--export([new/0, new/1, new/2]).
+-export([new/0, new/1, new/2, new_error/1]).
 -export([value/1, values/1, error/1, errors/1]).
--export([has_error/1, has_errors/1]).
+-export([has_value/1, has_values/1, has_error/1, has_errors/1]).
 -export([r_and/2, r_or/2]).
 
 -include_lib("include/results.hrl").
@@ -26,6 +26,10 @@ new(Value, Error) ->
      error = Error
   }.
 
+-spec new_error(term()) -> result().
+new_error(Error) ->
+    new(undefined, Error).
+
 -spec value(result()) -> term().
 value(#result{value=V}) ->
   V.
@@ -33,6 +37,16 @@ value(#result{value=V}) ->
 -spec values([result()]) -> [term()].
 values(Results) ->
   [value(R) || R <- Results].
+
+-spec has_value(result()) -> boolean().
+has_value(#result{value=V}) when V =:= undefined ->
+    false;
+has_value(_) ->
+    true.
+
+-spec has_values([result()]) -> [boolean()].
+has_values(Results) ->
+    [has_value(R) || R <- Results].
 
 -spec error(result()) -> term().
 error(#result{error=E}) ->
