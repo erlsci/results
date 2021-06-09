@@ -13,3 +13,12 @@ new_result_error_test() ->
     ?assertEqual({error, "AWOL again, Bob"}, R1#result.error),
     R2 = results:new(undefined, {error, "AWOL again, Bob"}),
     ?assertEqual({error, "AWOL again, Bob"}, R2#result.error).
+
+value_test() ->
+    ?assertEqual(alice, results:value(results:new(alice))).
+
+error_test() ->
+    R1 = results:new(bob, {error, "AWOL again, Bob"}),
+    ?assertEqual({error, "AWOL again, Bob"}, results:error(R1)),
+    R2 = results:new(undefined, oops),
+    ?assertEqual(oops, results:error(R2)).
