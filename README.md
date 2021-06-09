@@ -30,8 +30,8 @@ Distributed under the Apache License, Version 2.0.
 
 [//]: ---Named-Links---
 
-[logo]: priv/images/logo-v1-x250.png
-[logo-large]: priv/images/logo-v1-x1000.png
+[logo]: priv/images/logo.png
+[logo-large]: priv/images/logo-large.png
 [github]: https://github.com/erlsci/results
 [gh-actions-badge]: https://github.com/erlsci/results/workflows/ci%2Fcd/badge.svg
 [gh-actions]: https://github.com/erlsci/results/actions
