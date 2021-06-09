@@ -12,11 +12,66 @@
 
 In a language that is focused on data and messages, it makes sense for errors to be as
 well. This library makes it trivial for errors to be treated as such, and just as importantly,
-to be treated consistently across multiple problem domains.
+to be treated consistently across multiple problem domains (as well as different solution implementations). (When building large systems, unified/consistent results-handling (values and errors) is critical to code maintainability.)
 
-## About
+## Usage
 
-TBD
+Creating new results:
+
+``` erlang
+1> R1 = results:new().
+{result,undefined,undefined}
+```
+
+``` erlang
+2> R2 = results:new(42).
+{result,42,undefined}
+```
+
+``` erlang
+3> R3 = results:new(undefined, {error, oops}).
+{result,undefined,{error,oops}}
+```
+
+``` erlang
+4> R4 = results:new_error(oops).
+{result,undefined,oops}
+```
+
+Checking results:
+
+``` erlang
+5> results:value(R2).
+42
+6> results:values([R1,R2,R3,R4]).
+[undefined,42,undefined,undefined]
+7> results:has_value(R1).
+false
+```
+
+``` erlang
+8> results:error(R3).
+{error,oops}
+9> results:errors([R1,R2,R3,R4]).
+[undefined,undefined,{error,oops},oops]
+10> results:has_error(R4).
+true
+```
+
+``` erlang
+12> results:r_and(R1, R2).
+[]
+13> results:r_and(R3, R4).
+[{error,oops},oops]
+```
+
+``` erlang
+14> results:r_or(R1, R2).
+[42]
+15> results:r_or(R3, R4).
+[{error,oops},oops]
+```
+
 
 ## License [&#x219F;](#contents)
 
