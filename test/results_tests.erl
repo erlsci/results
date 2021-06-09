@@ -62,3 +62,37 @@ has_errors_true_test() ->
           results:new(undefined, {error, bad_news_bob}),
           results:new(undefined, {error, collups_cutting_carol})],
     ?assertEqual([true,true,true], results:has_errors(Rs)).
+
+r_and_no_errors_test() ->
+    ?assertEqual([], results:r_and(results:new(), results:new())),
+    ?assertEqual([dave,eve], results:r_and(results:new(dave), results:new(eve))),
+    ?assertEqual([], results:r_and(results:new(dave), results:new())),
+    ?assertEqual([], results:r_and(results:new(), results:new(eve))).
+
+r_and_errors_test() ->
+    ?assertEqual([],
+                  results:r_and(results:new(freya),
+                                results:new(undefined, {error, no_greta}))),
+    ?assertEqual([],
+                  results:r_and(results:new(undefined, {error, no_freya}),
+                                results:new())),
+    ?assertEqual([],
+                  results:r_and(results:new(),
+                                results:new(undefined, {error, no_greta}))),
+    ?assertEqual([{error, no_freya}, {error, no_greta}],
+                 results:r_and(results:new(undefined, {error, no_freya}),
+                               results:new(undefined, {error, no_greta}))).
+
+r_or_no_errors_test() ->
+    ?assertEqual([], results:r_and(results:new(), results:new())),
+    ?assertEqual([dave,eve], results:r_or(results:new(dave), results:new(eve))),
+    ?assertEqual([dave], results:r_or(results:new(dave), results:new())),
+    ?assertEqual([eve], results:r_or(results:new(), results:new(eve))).
+
+r_or_errors_test() ->
+    ?assertEqual([{error, no_greta}], 
+                  results:r_or(results:new(freya),
+                               results:new(undefined, {error, no_greta}))),
+    ?assertEqual([{error, no_freya}, {error, no_greta}],
+                 results:r_or(results:new(undefined, {error, no_freya}),
+                              results:new(undefined, {error, no_greta}))).
