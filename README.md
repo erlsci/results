@@ -72,6 +72,15 @@ true
 [{error,oops},oops]
 ```
 
+Using default/fallback results:
+
+``` erlang
+16> results:attempt(R2, results:new(5)).
+{result,42,undefined}
+17> results:attempt(R4, results:new(5)).
+{result,5,undefined}
+```
+
 
 ## License [&#x219F;](#contents)
 
