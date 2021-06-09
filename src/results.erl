@@ -6,6 +6,7 @@
 -export([value/1, values/1, error/1, errors/1]).
 -export([has_value/1, has_values/1, has_error/1, has_errors/1]).
 -export([r_and/2, r_or/2]).
+-export([attempt/2]).
 
 -include_lib("include/results.hrl").
 
@@ -79,3 +80,9 @@ r_or(#result{error=E1}, #result{error=E2}) when E1=/=undefined orelse E2=/=undef
     [E || E <- [E1, E2], E =/= undefined];
 r_or(#result{value=V1}, #result{value=V2}) ->
     [V || V <- [V1, V2], V =/= undefined].
+
+-spec attempt(result(), result()) -> result().
+attempt(Result, _) when Result#result.error=:=undefined ->
+    Result;
+attempt(_, Default) ->
+    Default.

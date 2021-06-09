@@ -120,3 +120,11 @@ r_or_errors_test() ->
     ?assertEqual([{error, no_freya}, {error, no_greta}],
                  results:r_or(results:new(undefined, {error, no_freya}),
                               results:new(undefined, {error, no_greta}))).
+
+attempt_no_error_test() ->
+    R = results:attempt(results:new(hank), results:new(irena)),
+    ?assertEqual(hank, results:value(R)).
+
+attempt_with_error_test() ->
+    R = results:attempt(results:new_error(oops), results:new(irena)),
+    ?assertEqual(irena, results:value(R)).
