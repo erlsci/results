@@ -9,6 +9,7 @@
   {env,[]},
   {modules, []},
 
+  {files, ["rebar.config", "README*", "LICENSE*", "src", "include", "test"]},
   {licenses, ["Apache 2.0"]},
   {links, []}
  ]}.
